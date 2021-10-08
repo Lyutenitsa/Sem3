@@ -2,8 +2,10 @@ package com.indv.project.rest_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
 public class RestApiApplication {
 
     public static void main(String[] args) {

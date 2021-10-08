@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/testing")
-@CrossOrigin(origins = "*") //http://localhost:8080")
+@CrossOrigin(origins = "*") //http://localhost:8080/testing")
 public class ExampleController {
 
     private static final String sample = "This is a test string";
@@ -20,10 +20,11 @@ public class ExampleController {
 
 
     @GetMapping(path = "/HelloWorld")
+    @CrossOrigin(origins = "http://localhost:3000")
     @ResponseBody
     public ResponseEntity<String> HelloWorld()
     {
-        System.out.println("Hello");
+        System.out.println("Hello from front end");
 
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
 
