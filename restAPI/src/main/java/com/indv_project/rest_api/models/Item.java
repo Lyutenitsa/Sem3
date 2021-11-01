@@ -5,7 +5,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "items")
-public class Item {
+public class Item
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,10 +19,13 @@ public class Item {
     @Column(name = "subject")
     private String subject;
 
-    public Item() {
+    public Item()
+    {
 
     }
-    public Item(String body, String subject){
+
+    public Item(String body, String subject)
+    {
 
         this.setBody(body);
 
@@ -29,39 +33,48 @@ public class Item {
 
     }
 
-    public Item(String body) {
+    public Item(String body)
+    {
         this.setBody(body);
     }
 
-    public void setId(Long id) {
+    //Getter and setters
+    //region
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public String getBody() {
+    public String getBody()
+    {
         return body;
     }
 
-        public void setBody(String body) {
+    public void setBody(String body)
+    {
         this.body = body;
     }
 
-    public String getSubject() {
+    public String getSubject()
+    {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(String subject)
+    {
         this.subject = subject;
     }
+    //endregion
 
     @Override
-    public String toString() {
-        return "Item{ " +
-                "id = '" + this.getId() + '\'' +
-                '}';
+    public String toString()
+    {
+        return "Item{ " + "id = '" + this.getId() + '\'' + '}';
     }
 }
 

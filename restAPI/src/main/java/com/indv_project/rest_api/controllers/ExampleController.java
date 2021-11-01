@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/testing")
 //@CrossOrigin(origins = "*") //http://localhost:8080/testing")
@@ -20,7 +22,8 @@ public class ExampleController {
     @Autowired
     public IitemsRepo itemsRepo;
 
-
+    //Test methods
+    //region
     @GetMapping(path = "/HelloWorld")
     @CrossOrigin(origins = "http://localhost:3000")
     @ResponseBody
@@ -34,12 +37,13 @@ public class ExampleController {
 
     @GetMapping(path = "/data")
     @ResponseBody
-    public ResponseEntity<String> This()
+    public ResponseEntity<String> testData()
     {
-//        return new ResponseEntity<>(sample, HttpStatus.OK);
+        //return new ResponseEntity<>(sample, HttpStatus.OK);
         return ResponseEntity.ok(sample);
 
     }
+    //endregion
 
     @PostMapping("/createItem")
     public ResponseEntity<Item> createTutorial(@RequestBody Item reqItem) {
@@ -54,26 +58,17 @@ public class ExampleController {
     }
 
 
-//    @GetMapping(path = "/getItem/{id}")
-//    @ResponseBody
-//    public ResponseEntity<String> getItemByID(@PathVariable("id") String id) {
-//        Item item = new Item();
-//        if (!Items.contains(item)) {
-//            System.out.println("create ?");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else
-//            return new ResponseEntity<>("this just ran", HttpStatus.OK);
-//
-//    }
+    @GetMapping(path = "/getItem/{id}")
+    @ResponseBody
+    public ResponseEntity<Item> getItemByID(@PathVariable("id") Long id) {
+        System.out.println("get item method");
+        Optional<Item> itemToReturn = itemsRepo.findById(id);
+        if (itemToReturn.isEmpty()) {
+            System.out.println("not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity<>(itemToReturn.get(), HttpStatus.OK);
 
-
-//    @PostMapping(path = "/createItem/{id}")
-//    @ResponseBody
-//    public ResponseEntity<String> CreateItem(@PathVariable("id") String id){
-//        Item item = new Item(id);
-//        Items.add(item);
-//        System.out.println("This");
-//        return new ResponseEntity<>(item.toString(), HttpStatus.CREATED);
-//    }
+    }
 }
