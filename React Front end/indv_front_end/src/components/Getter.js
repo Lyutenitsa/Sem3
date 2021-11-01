@@ -1,41 +1,36 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import getRequest from '../services/getRequest.js'
 
 class Getter extends Component {
     constructor(props){
         super(props)
 
         this.state= {
-            hello:[],
+            data:[],
             errMessage:[]
             
         }
     }
     componentDidMount(){
-        axios.get('http://localhost:8080/testing/HelloWorld1')
-        .then(response=>{({hello: response.data})
-            console.log(response)
-        })
-        .catch(error=> {
-            this.setState({errMessage: "There was an error with the request"})
-            console.log(error)
-        })
-
-
+        getRequest.getHelloWorld('http://localhost:8080/testing/getItem/6').then(result=> this.setState({data: result}))
+        // this.setState({data: response.success})
+        // console.log("this should be an item object 123", response.onFulfilled)
     }
      render() { 
-         const {hello, errMessage} = this.state
+         const {data, errMessage} = this.state
+        //  data.map()
          return (
-         <div> 
+         <div id="this is where the item should be"> 
              {
-             hello ? 
-             <div>{hello}</div> :
-             null
-             }
-             {
-                 errMessage?
-                 <div>{errMessage}</div>:
-                 null
+                 <div >{JSON.stringify(data)}</div>
+            //  responce ? 
+            //  <div >{responce}</div> :
+            //  null
+            //  }
+            //  {
+            //      errMessage?
+            //      <div>{errMessage}</div>:
+            //      null
              }
          </div>
         );
