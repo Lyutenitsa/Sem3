@@ -8,14 +8,14 @@ stages:
   - test
   - assemble
   
-clean:
-  image: gradle:latest
-  stage: clean
-  script:
-    - gradle clean
-  artifacts:
-    paths:
-      - build/libs/*.jar
+# clean:
+#   image: gradle:latest
+#   stage: clean
+#   script:
+#     - gradle clean
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar
 
 sonarqube-check:
   image: gradle:jre11-slim
