@@ -1,2 +1,2 @@
 include:
-  - local: './restAPI/.gitlab-ci.yml'
+  - local: 'restAPI/.gitlab-ci.yml'
