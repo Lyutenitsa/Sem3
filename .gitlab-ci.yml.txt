@@ -1,0 +1,2 @@
+include:
+  - local: './restAPI/.gitlab-ci.yml'
