@@ -18,7 +18,7 @@ stages:
 sonarqube:
  stage: sonarqube
  script:
-   - .gradlew sonarqube
+   - ./gradlew sonarqube
 
 
 # build:
