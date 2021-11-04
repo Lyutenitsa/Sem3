@@ -3,7 +3,7 @@ services:
   - docker:dind
 
 stages:
-  - sonarqube
+  # - sonarqube
   - build
   
 # clean:
