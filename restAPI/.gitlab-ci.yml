@@ -18,7 +18,6 @@ stages:
 sonarqube:
  stage: sonarqube
  script:
-   - cd ./individual-assignment-db
    - ./gradlew sonarqube
 
 
