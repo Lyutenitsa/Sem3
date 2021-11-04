@@ -7,7 +7,7 @@ stages:
   # - build
   # - test
   # - assemble
-  -sonarqube
+  - sonarqube
   
 # clean:
 #   image: gradle:latest
