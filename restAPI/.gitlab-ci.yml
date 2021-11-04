@@ -2,11 +2,11 @@ image: docker:latest
 services:
   - docker:dind
 
-stages:
-  - clean
-  - build
-  - test
-  - assemble
+# stages:
+#   - clean
+#   - build
+#   - test
+#   - assemble
   
 # clean:
 #   image: gradle:latest
@@ -32,32 +32,32 @@ sonarqube-check:
     - master # or the name of your main branch
 
 
-build:
-  image: gradle:latest
-  stage: build
-  script:
-    - gradle build
-  artifacts:
-    paths:
-      - build/libs/*.jar
+# build:
+#   image: gradle:latest
+#   stage: build
+#   script:
+#     - gradle build
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar
 
-test:
-  image: gradle:latest
-  stage: test
-  script:
-    - gradle test
-  artifacts:
-    paths:
-      - build/libs/*.jar  
+# test:
+#   image: gradle:latest
+#   stage: test
+#   script:
+#     - gradle test
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar  
 
-assemble:
-  image: gradle:latest
-  stage: assemble
-  script:
-    - gradle assemble
-  artifacts:
-    paths:
-      - build/libs/*.jar
+# assemble:
+#   image: gradle:latest
+#   stage: assemble
+#   script:
+#     - gradle assemble
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar
 
       
 after_script:
