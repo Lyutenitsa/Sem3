@@ -4,6 +4,7 @@ services:
 
 stages:
   - sonarqube
+  - build
   
 # clean:
 #   image: gradle:latest
@@ -31,14 +32,14 @@ sonarqube:
     - master # or the name of your main branch
 
 
-# build:
-#   image: gradle:latest
-#   stage: build
-#   script:
-#     - gradle build
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+build:
+  image: gradle:latest
+  stage: build
+  script:
+    - gradle build
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 # test:
 #   image: gradle:latest
