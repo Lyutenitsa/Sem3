@@ -17,8 +17,6 @@ stages:
 
 sonarqube:
  stage: sonarqube
- dependencies:
-   - test
  script:
    - cd ./individual-assignment-db
    - ./gradlew sonarqube
