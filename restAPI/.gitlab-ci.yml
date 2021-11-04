@@ -1,12 +1,13 @@
-# image: docker:latest
-# services:
-#   - docker:dind
+image: docker:latest
+services:
+  - docker:dind
 
-# stages:
-#   - clean
-#   - build
-#   - test
-#   - assemble
+stages:
+  # - clean
+  # - build
+  # - test
+  # - assemble
+  -sonarqube
   
 # clean:
 #   image: gradle:latest
@@ -26,7 +27,9 @@ sonarqube-check:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
-  script: gradle sonarqube
+  script:
+    - .gradlew sonarqube
+    #- gradle sonarqube
   allow_failure: true
   only:
     - master # or the name of your main branch
