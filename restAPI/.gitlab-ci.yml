@@ -3,10 +3,6 @@ services:
   - docker:dind
 
 stages:
-  # - clean
-  # - build
-  # - test
-  # - assemble
   - sonarqube
   
 # clean:
