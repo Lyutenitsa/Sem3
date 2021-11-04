@@ -1,12 +1,12 @@
-image: docker:latest
-services:
-  - docker:dind
+# image: docker:latest
+# services:
+#   - docker:dind
 
-stages:
-  - clean
-  - build
-  - test
-  - assemble
+# stages:
+#   - clean
+#   - build
+#   - test
+#   - assemble
   
 # clean:
 #   image: gradle:latest
