@@ -12,7 +12,7 @@ class Getter extends Component {
         }
     }
     componentDidMount(){
-        getRequest.getHelloWorld('http://localhost:8080/testing/getItem/6').then(result=> this.setState({data: result}))
+        getRequest.getHelloWorld('http://localhost:8080/api/getItem/4').then(result=> this.setState({data: result}))
         // this.setState({data: response.success})
         // console.log("this should be an item object 123", response.onFulfilled)
     }
