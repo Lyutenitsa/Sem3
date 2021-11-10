@@ -3,7 +3,8 @@ services:
   - docker:dind
 
 stages:
-  - sonarqube
+  #- sonarqube
+  # - clean
   - build
   - test
   
@@ -16,10 +17,10 @@ stages:
 #     paths:
 #       - build/libs/*.jar
 
-sonarqube:
- stage: sonarqube
- script:
-   - ./gradlew sonarqube
+# sonarqube:
+#  stage: sonarqube
+#  script:
+#    - ./gradlew sonarqube
 
 
 build:
