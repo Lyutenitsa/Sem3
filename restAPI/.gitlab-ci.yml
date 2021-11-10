@@ -27,7 +27,8 @@ build:
   image: gradle:latest
   stage: build
   script:
-    - ./gradle build
+    - dir
+    # - ./gradle build
 
   # artifacts:
   #   paths:
@@ -37,7 +38,8 @@ test:
   image: gradle:latest
   stage: test
   script:
-    - ./gradle test
+    - dir
+    # - ./gradle test
   # artifacts:
   #   paths:
   #     - build/libs/*.jar  
