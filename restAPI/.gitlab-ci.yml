@@ -4,7 +4,8 @@ services:
 
 stages:
   - sonarqube
-  # - build
+  - build
+  - test
   
 # clean:
 #   image: gradle:latest
@@ -18,26 +19,31 @@ stages:
 sonarqube:
  stage: sonarqube
  script:
-   - ./gradle sonarqube
+   - ./gradlew sonarqube
 
 
-# build:
-#   image: gradle:latest
-#   stage: build
-#   script:
-#     - gradle build
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+build:
+  image: gradle:latest
+  stage: build
+  tag: 
+    - API build ci
+  script:
+    - gradle build
 
-# test:
-#   image: gradle:latest
-#   stage: test
-#   script:
-#     - gradle test
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar  
+  # artifacts:
+  #   paths:
+  #     - build/libs/*.jar
+
+test:
+  image: gradle:latest
+  stage: test
+  tag: 
+    - API test ci
+  script:
+    - gradle test
+  # artifacts:
+  #   paths:
+  #     - build/libs/*.jar  
 
 # assemble:
 #   image: gradle:latest
