@@ -4,7 +4,7 @@ services:
 
 stages:
   - clean
-  - sonarqube
+  # - sonarqube
   - build
   - test
   - assemble
@@ -19,11 +19,11 @@ clean:
     paths:
       - build/libs/*.jar
 
-sonarqube:
- stage: sonarqube
- script:
-   - cd restAPI
-   - ./gradlew sonarqube
+# sonarqube:
+#  stage: sonarqube
+#  script:
+#    - cd restAPI
+#    - ./gradlew sonarqube
 
 
 build:
