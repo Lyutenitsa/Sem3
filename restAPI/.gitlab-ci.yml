@@ -3,10 +3,11 @@ services:
   - docker:dind
 
 stages:
-  - sonarqube
   - clean
+  - sonarqube
   - build
   - test
+  - assemble
   
 clean:
   image: gradle:latest
