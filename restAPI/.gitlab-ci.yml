@@ -1,23 +1,22 @@
-image: docker:latest
-services:
-  - docker:dind
+# image: docker:latest
+# services:
+#   - docker:dind
 
 stages:
-  # - clean
+  - clean
   # - sonarqube
-  # - build
+  - build
   - test
   - assemble
   
-# clean:
-#   image: gradle:latest
-#   stage: clean
-#   script:
-#     - cd restAPI
-#     - gradle clean
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+clean:
+  stage: clean
+  script:
+    - cd restAPI
+    - gradle clean
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 # sonarqube:
 #  stage: sonarqube
@@ -26,18 +25,16 @@ stages:
 #    - ./gradlew sonarqube
 
 
-# build:
-#   image: gradle:latest
-#   stage: build
-#   script:
-#     - cd restAPI
-#     - gradle build
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+build:
+  stage: build
+  script:
+    - cd restAPI
+    - gradle build
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 test:
-  image: gradle:latest
   stage: test
   script:
     - cd restAPI
@@ -47,7 +44,6 @@ test:
       - build/libs/*.jar  
 
 assemble:
-  image: gradle:latest
   stage: assemble
   script:
     - cd restAPI
@@ -58,4 +54,66 @@ assemble:
 
       
 after_script:
-  - echo "This should work with the new repo"
+  - echo "This is form the shell runner"
+
+# image: docker:latest
+# services:
+#   - docker:dind
+
+# stages:
+#   # - clean
+#   # - sonarqube
+#   # - build
+#   - test
+#   - assemble
+  
+# # clean:
+# #   image: gradle:latest
+# #   stage: clean
+# #   script:
+# #     - cd restAPI
+# #     - gradle clean
+# #   artifacts:
+# #     paths:
+# #       - build/libs/*.jar
+
+# # sonarqube:
+# #  stage: sonarqube
+# #  script:
+# #    - cd restAPI
+# #    - ./gradlew sonarqube
+
+
+# # build:
+# #   image: gradle:latest
+# #   stage: build
+# #   script:
+# #     - cd restAPI
+# #     - gradle build
+# #   artifacts:
+# #     paths:
+# #       - build/libs/*.jar
+
+# test:
+#   image: gradle:latest
+#   stage: test
+#   script:
+#     - cd restAPI
+#     - gradle test
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar  
+
+# assemble:
+#   image: gradle:latest
+#   stage: assemble
+#   script:
+#     - cd restAPI
+#     - gradle assemble
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar
+
+      
+# after_script:
+#   - echo "This should work with the new repo"
