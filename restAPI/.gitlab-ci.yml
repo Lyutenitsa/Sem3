@@ -14,7 +14,7 @@ clean:
     - back-end
   script:
     - cd restAPI
-    - gradle clean
+    - ./gradlew clean
   artifacts:
     paths:
       - build/libs/*.jar
@@ -32,7 +32,7 @@ build:
     - back-end
   script:
     - cd restAPI
-    - gradle build
+    - ./gradlew build
   artifacts:
     paths:
       - build/libs/*.jar
@@ -43,7 +43,7 @@ test:
     - back-end
   script:
     - cd restAPI
-    - gradle test
+    - ./gradlew test
   artifacts:
     paths:
       - build/libs/*.jar  
@@ -54,7 +54,7 @@ assemble:
     - back-end
   script:
     - cd restAPI
-    - gradle assemble
+    - ./gradle assemble
   artifacts:
     paths:
       - build/libs/*.jar
