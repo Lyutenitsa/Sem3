@@ -3,56 +3,58 @@ services:
   - docker:dind
 
 stages:
-  #- sonarqube
-  # - clean
+  - sonarqube
+  - clean
   - build
   - test
   
-# clean:
-#   image: gradle:latest
-#   stage: clean
-#   script:
-#     - gradle clean
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+clean:
+  image: gradle:latest
+  stage: clean
+  script:
+    - cd restAPI
+    - gradle clean
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
-# sonarqube:
-#  stage: sonarqube
-#  script:
-#    - ./gradlew sonarqube
+sonarqube:
+ stage: sonarqube
+ script:
+   - cd restAPI
+   - ./gradlew sonarqube
 
 
 build:
   image: gradle:latest
   stage: build
   script:
-    - dir
-    # - ./gradle build
-
-  # artifacts:
-  #   paths:
-  #     - build/libs/*.jar
+    - cd restAPI
+    - ./gradle build
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 test:
   image: gradle:latest
   stage: test
   script:
-    - dir
-    # - ./gradle test
-  # artifacts:
-  #   paths:
-  #     - build/libs/*.jar  
+    - cd restAPI
+    - ./gradle test
+  artifacts:
+    paths:
+      - build/libs/*.jar  
 
-# assemble:
-#   image: gradle:latest
-#   stage: assemble
-#   script:
-#     - gradle assemble
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+assemble:
+  image: gradle:latest
+  stage: assemble
+  script:
+    - cd restAPI
+    - gradle assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
       
 after_script:
-  - echo "End CI"
+  - echo "This should work with the new repo"
