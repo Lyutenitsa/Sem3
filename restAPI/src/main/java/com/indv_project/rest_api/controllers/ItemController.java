@@ -1,26 +1,26 @@
 package com.indv_project.rest_api.controllers;
 
 import com.indv_project.rest_api.models.Item;
+import com.indv_project.rest_api.models.User;
 import com.indv_project.rest_api.repositories.IitemsRepo;
-import com.indv_project.rest_api.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+
 @RestController
-@RequestMapping(path = "/testing")
-//@CrossOrigin(origins = "*") //http://localhost:8080/testing")
-public class ExampleController {
+@RequestMapping(path = "/api")
+@CrossOrigin(origins = "*") //http://localhost:8080/testing")
+public class ItemController {
 
     private static final String sample = "This is a test string";
 
 
     @Autowired
-    public IitemsRepo itemsRepo;
+    private IitemsRepo itemsRepo;
 
     //Test methods
     //region
@@ -32,7 +32,6 @@ public class ExampleController {
         System.out.println("Hello from front end");
 
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
-
     }
 
     @GetMapping(path = "/data")
