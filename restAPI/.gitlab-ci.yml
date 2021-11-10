@@ -3,21 +3,21 @@ services:
   - docker:dind
 
 stages:
-  - clean
+  # - clean
   # - sonarqube
   - build
   - test
   - assemble
   
-clean:
-  image: gradle:latest
-  stage: clean
-  script:
-    - cd restAPI
-    - gradle clean
-  artifacts:
-    paths:
-      - build/libs/*.jar
+# clean:
+#   image: gradle:latest
+#   stage: clean
+#   script:
+#     - cd restAPI
+#     - gradle clean
+#   artifacts:
+#     paths:
+#       - build/libs/*.jar
 
 # sonarqube:
 #  stage: sonarqube
@@ -31,7 +31,7 @@ build:
   stage: build
   script:
     - cd restAPI
-    - ./gradle build
+    - gradle build
   artifacts:
     paths:
       - build/libs/*.jar
@@ -41,7 +41,7 @@ test:
   stage: test
   script:
     - cd restAPI
-    - ./gradle test
+    - gradle test
   artifacts:
     paths:
       - build/libs/*.jar  
