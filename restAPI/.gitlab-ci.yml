@@ -54,7 +54,7 @@ assemble:
     - back-end
   script:
     - cd restAPI
-    - ./gradle assemble
+    - ./gradlew assemble
   artifacts:
     paths:
       - build/libs/*.jar
