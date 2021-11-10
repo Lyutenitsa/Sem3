@@ -11,7 +11,7 @@ stages:
   
 clean:
   stage: clean
-  tags: back-end
+  tags: "back-end"
   script:
     - cd restAPI
     - gradle clean
@@ -28,7 +28,7 @@ clean:
 
 build:
   stage: build
-  tags: back-end
+  tags: "back-end"
   script:
     - cd restAPI
     - gradle build
@@ -38,7 +38,7 @@ build:
 
 test:
   stage: test
-  tags: back-end
+  tags: "back-end"
   script:
     - cd restAPI
     - gradle test
@@ -48,7 +48,7 @@ test:
 
 assemble:
   stage: assemble
-  tags: back-end
+  tags: "back-end"
   script:
     - cd restAPI
     - gradle assemble
