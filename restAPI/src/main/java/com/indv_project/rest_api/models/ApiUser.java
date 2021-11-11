@@ -11,9 +11,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "user")
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class ApiUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,16 +20,12 @@ public class User {
 
     private String username;
     private String password;
+    private String role;
 
     //region
 //    public Long getId()
 //    {
 //        return id;
-//    }
-//
-//    public void setId(Long id)
-//    {
-//        this.id = id;
 //    }
 //
 //    public String getUsername()

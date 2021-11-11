@@ -1,12 +1,16 @@
 package com.indv_project.rest_api.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "items")
-public class Item
-{
+@Getter
+@Setter
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,39 +41,6 @@ public class Item
     {
         this.setBody(body);
     }
-
-    //Getter and setters
-    //region
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public String getBody()
-    {
-        return body;
-    }
-
-    public void setBody(String body)
-    {
-        this.body = body;
-    }
-
-    public String getSubject()
-    {
-        return subject;
-    }
-
-    public void setSubject(String subject)
-    {
-        this.subject = subject;
-    }
-    //endregion
 
     @Override
     public String toString()
