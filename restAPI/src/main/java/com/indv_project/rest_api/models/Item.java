@@ -1,7 +1,6 @@
 package com.indv_project.rest_api.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "items")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Item {
 
     @Id
@@ -21,12 +21,9 @@ public class Item {
 
 
     @Column(name = "subject")
+    @NonNull
     private String subject;
 
-    public Item()
-    {
-
-    }
 
     public Item(String body, String subject)
     {
@@ -35,11 +32,6 @@ public class Item {
 
         this.setSubject(subject);
 
-    }
-
-    public Item(String body)
-    {
-        this.setBody(body);
     }
 
     @Override

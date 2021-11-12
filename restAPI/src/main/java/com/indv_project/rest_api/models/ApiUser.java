@@ -1,5 +1,6 @@
 package com.indv_project.rest_api.models;
 
+import com.indv_project.rest_api.models.response.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,30 +23,12 @@ public class ApiUser {
     private String password;
     private String role;
 
-    //region
-//    public Long getId()
-//    {
-//        return id;
-//    }
-//
-//    public String getUsername()
-//    {
-//        return username;
-//    }
-//
-//    public void setUsername(String username)
-//    {
-//        this.username = username;
-//    }
-//
-//    public String getPassword()
-//    {
-//        return password;
-//    }
-//
-//    public void setPassword(String password)
-//    {
-//        this.password = password;
-//    }
-    //endregion
+    public UserResponse get()
+    {
+        UserResponse user = new UserResponse();
+        user.setId(this.id);
+        user.setUsername(this.username);
+
+        return user;
+    }
 }

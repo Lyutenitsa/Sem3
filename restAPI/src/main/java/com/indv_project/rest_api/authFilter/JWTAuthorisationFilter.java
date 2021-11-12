@@ -75,7 +75,10 @@ public class JWTAuthorisationFilter extends BasicAuthenticationFilter {
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role)
     {
+
         return Arrays.asList(new SimpleGrantedAuthority(role));
+
+
     }
 
 }

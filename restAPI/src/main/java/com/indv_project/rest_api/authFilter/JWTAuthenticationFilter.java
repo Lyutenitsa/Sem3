@@ -34,19 +34,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try
         {
             ApiUser creds = new ObjectMapper().readValue(request.getInputStream(), ApiUser.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
-        }catch(IOException e)
+            return authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
+        }
+        catch(IOException e)
         {
             throw new RuntimeException(e);
         }
     }
 
+    //    ON LOGING THIS METHOD IS ACCESSED AND RETURNS THE RESULT OF THE LOGIN
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException, ServletException
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            FilterChain chain, Authentication auth) throws IOException, ServletException
     {
         System.out.println("Successful authentication");
-        String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
+        String token = JWT.create().withSubject(((User) auth.getPrincipal()).getUsername())
                 .withClaim("role", auth.getAuthorities().iterator().next().getAuthority())
                 .withExpiresAt(new Date(System.currentTimeMillis() + constants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(constants.SECRET.getBytes()));
@@ -54,8 +57,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader(constants.HEADER_STRING, constants.TOKEN_PREFIX + token);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(
-                "{\"" + constants.HEADER_STRING + "\":\"" + constants.TOKEN_PREFIX + token + "\"}"
-        );
+        response.getWriter().write("{\"" + constants.HEADER_STRING + "\":\"" + constants.TOKEN_PREFIX + token + "\"}");
+
+        //Whatever needs to be return other than the token on login
+        response.getWriter().write(((User) auth.getPrincipal()).getUsername());
     }
 }

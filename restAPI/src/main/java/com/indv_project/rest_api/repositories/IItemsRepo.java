@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface IItemsRepo extends JpaRepository<Item, Long> {
     Item findItemByBody(String body);
 
-    @Override
     Optional<Item> findById(Long aLong);
 }

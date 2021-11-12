@@ -43,9 +43,9 @@ test {
     useJUnitPlatform()
 }
 
-sonarqube {
-    properties {
-        property "sonar.projectKey", "Individual-Project"
-        property "sonar.qualitygate.wait", true
-    }
-}
+//sonarqube {
+//    properties {
+//        property "sonar.projectKey", "Individual-Project"
+//        property "sonar.qualitygate.wait", true
+//    }
+//}

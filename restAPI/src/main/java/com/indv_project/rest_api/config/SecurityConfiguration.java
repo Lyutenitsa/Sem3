@@ -21,24 +21,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationUserService authenticationUserDetailService;
     private static AuthConfigConstants constants;
 
-
-//    public SecurityConfiguration()
-//    {
-//        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        this.authenticationUserDetailService = new AuthenticationUserService();
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, constants.SIGN_UP_URL).permitAll()
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, constants.SIGN_UP_URL)
+                .permitAll()
                 //ROLE BASED AUTHENTICATION START
-            .antMatchers("/api/**").hasAnyAuthority("User")
-            .antMatchers("/api/library/author/**").hasAnyAuthority("ADMIN")
-            .antMatchers("/api/library/member/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/api/**").permitAll()//.hasAnyAuthority("USER")
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/api/library/member/**").hasAnyAuthority("ADMIN")
                 //ROLE BASED AUTHENTICATION END
-                .anyRequest().authenticated().and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .anyRequest().authenticated().and().addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorisationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -49,6 +42,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
         auth.userDetailsService(authenticationUserDetailService).passwordEncoder(bCryptPasswordEncoder);
     }
-
-
 }
