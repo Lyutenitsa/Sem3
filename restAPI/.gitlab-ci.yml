@@ -15,6 +15,7 @@ clean:
   script:
     - cd restAPI
     - ./gradlew clean
+    - echo "Clean script over"
   artifacts:
     paths:
       - build/libs/*.jar
@@ -25,7 +26,6 @@ clean:
 #    - cd restAPI
 #    - ./gradlew sonarqube
 
-
 build:
   stage: build
   tags: 
@@ -33,6 +33,7 @@ build:
   script:
     - cd restAPI
     - ./gradlew build
+    - echo "Build script over"
   artifacts:
     paths:
       - build/libs/*.jar
@@ -44,6 +45,7 @@ test:
   script:
     - cd restAPI
     - ./gradlew test
+    - echo "Test script over"
   artifacts:
     paths:
       - build/libs/*.jar  
@@ -55,13 +57,14 @@ assemble:
   script:
     - cd restAPI
     - ./gradlew assemble
+    - echo "Assemble script over"
   artifacts:
     paths:
       - build/libs/*.jar
 
       
 after_script:
-  - echo "This is form the shell runner"
+  - echo "This is form the shell runner. After Script"
 
 # image: docker:latest
 # services:
