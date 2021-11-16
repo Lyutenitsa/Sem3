@@ -1,14 +1,13 @@
 package com.indv_project.rest_api.services;
 
-import com.indv_project.rest_api.models.ApiUser;
-import com.indv_project.rest_api.models.request.ChangePswdRequest;
-import com.indv_project.rest_api.models.request.ChangeUsernameRequest;
-import com.indv_project.rest_api.models.request.UserCreateRequest;
-import com.indv_project.rest_api.repositories.IUserRepo;
+import com.indv_project.rest_api.models.User;
+import com.indv_project.rest_api.payload.request.ChangePswdRequest;
+import com.indv_project.rest_api.payload.request.ChangeUsernameRequest;
+import com.indv_project.rest_api.payload.request.UserCreateRequest;
+import com.indv_project.rest_api.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,40 +18,40 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final IUserRepo userRepo;
+    private final IUserRepository userRepo;
 
     private final BCryptPasswordEncoder pswdEncoder;
 
 
-    public ApiUser readByUsername(String username)
+    public User readByUsername(String username)
     {
         return userRepo.findByUsername(username).orElseThrow(EntityNotFoundException::new);
     }
-    public Optional<ApiUser> findById(Long username)
+    public Optional<User> findById(Long username)
     {
         return userRepo.findById(username);
     }
-    public void saveUser(ApiUser user){
+    public void saveUser(User user){
         userRepo.save(user);
     }
 
 
     // CREATING A USER ON SIGN UP
-    public void createUser(UserCreateRequest userCreateRequest)
-    {
-        ApiUser apiUser = new ApiUser();
-        Optional<ApiUser> byUsername = userRepo.findByUsername(userCreateRequest.getUsername());
-        if(byUsername.isPresent())
-        {
-            throw new RuntimeException("Username already in use. Please input a different username.");
-        }
-        apiUser.setUsername(userCreateRequest.getUsername());
-        apiUser.setPassword(pswdEncoder.encode(userCreateRequest.getPassword()));
-
-        //SETS DEFAULT ROLE OF USER
-        apiUser.setRole("USER");
-        userRepo.save(apiUser);
-    }
+//    public void createUser(UserCreateRequest userCreateRequest)
+//    {
+//        User apiUser = new User();
+//        Optional<User> byUsername = userRepo.findByUsername(userCreateRequest.getUsername());
+//        if(byUsername.isPresent())
+//        {
+//            throw new RuntimeException("Username already in use. Please input a different username.");
+//        }
+//        apiUser.setUsername(userCreateRequest.getUsername());
+//        apiUser.setPassword(pswdEncoder.encode(userCreateRequest.getPassword()));
+//
+//        //SETS DEFAULT ROLE OF USER
+//        apiUser.setRole("USER");
+//        userRepo.save(apiUser);
+//    }
 
 
 
@@ -60,14 +59,14 @@ public class UserService {
     public ResponseEntity<String> changePassword(ChangePswdRequest request)
     {
         System.out.println("Tries to change password");
-        Optional<ApiUser> _user = userRepo.findByUsername(request.getUsername());
+        Optional<User> _user = userRepo.findByUsername(request.getUsername());
 
         if(_user.isEmpty())
         {
             System.out.println("User not found");
             return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
         }
-        ApiUser dbUser = _user.get();
+        User dbUser = _user.get();
 
 
         String reqPassword = request.getOldPassword();
@@ -97,14 +96,14 @@ public class UserService {
         String newUsername = request.getNewUsername();
         String reqPassword = request.getPassword();
 
-        Optional<ApiUser> _user = userRepo.findByUsername(oldUsername);
+        Optional<User> _user = userRepo.findByUsername(oldUsername);
         if(_user.isEmpty())
         {
             System.out.println("User not found");
             return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
         }
 
-        ApiUser dbUser = _user.get();
+        User dbUser = _user.get();
         String realPassword = dbUser.getPassword();
 
         if(pswdEncoder.matches(reqPassword, realPassword))
@@ -123,7 +122,7 @@ public class UserService {
 
     public ResponseEntity<String> deleteUser(Long id)
     {
-        Optional<ApiUser> dbUser = userRepo.findById(id);
+        Optional<User> dbUser = userRepo.findById(id);
         if(dbUser.isEmpty())
             return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
 

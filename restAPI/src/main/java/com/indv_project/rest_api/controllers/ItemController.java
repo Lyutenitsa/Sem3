@@ -1,7 +1,7 @@
 package com.indv_project.rest_api.controllers;
 
 import com.indv_project.rest_api.models.Item;
-import com.indv_project.rest_api.repositories.IItemsRepo;
+import com.indv_project.rest_api.repositories.IItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +13,18 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(path = "/api")
-@CrossOrigin(origins = "*") //http://localhost:8080/testing")
+@RequestMapping(path = "/api/item")
+@CrossOrigin(origins = "http://localhost:8081") //http://localhost:8080/testing")
 public class ItemController {
 
-    private static final String sample = "This is a test string";
-
+    private  String sample = "This is a test string";
 
     @Autowired
-    private IItemsRepo itemsRepo;
+    private IItemsRepository itemsRepo;
 
     //Test methods
     //region
     @GetMapping(path = "/HelloWorld")
-    @CrossOrigin(origins = "http://localhost:3000")
     @ResponseBody
     public ResponseEntity<String> HelloWorld()
     {

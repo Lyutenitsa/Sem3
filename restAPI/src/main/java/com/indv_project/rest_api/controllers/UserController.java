@@ -1,42 +1,38 @@
 package com.indv_project.rest_api.controllers;
 
-import com.indv_project.rest_api.models.ApiUser;
-import com.indv_project.rest_api.models.request.ChangePswdRequest;
-import com.indv_project.rest_api.models.request.ChangeUsernameRequest;
-import com.indv_project.rest_api.models.request.UserCreateRequest;
-import com.indv_project.rest_api.models.response.UserResponse;
+import com.indv_project.rest_api.models.User;
+import com.indv_project.rest_api.payload.request.ChangePswdRequest;
+import com.indv_project.rest_api.payload.request.ChangeUsernameRequest;
+import com.indv_project.rest_api.payload.request.UserCreateRequest;
+import com.indv_project.rest_api.payload.response.UserResponse;
 import com.indv_project.rest_api.services.UserService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/api/user")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+//@CrossOrigin(origins = "http://localhost:8081") //http://localhost:8080/testing")
 public class UserController {
 
     @Autowired
     private UserService userService;
-    private final BCryptPasswordEncoder pswdEncoder;
+    @Autowired
+    private PasswordEncoder pswdEncoder;
 
-
-    @PostMapping(path = "/signup")
-    public ResponseEntity createUser(@RequestBody UserCreateRequest userCreateRequest)
-    {
-        System.out.println("Tries to create user");
-        userService.createUser(userCreateRequest);
-        return ResponseEntity.ok().build();
-    }
     @GetMapping(path = "/getUser/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id)
     {
-        Optional<ApiUser> dbUser = userService.findById(id);
+        Optional<User> dbUser = userService.findById(id);
         if(dbUser.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
