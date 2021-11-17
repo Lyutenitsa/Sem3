@@ -1,7 +1,7 @@
 package com.indv_project.rest_api.controllers;
 
 import com.indv_project.rest_api.models.Item;
-import com.indv_project.rest_api.repositories.IItemsRepository;
+import com.indv_project.rest_api.services.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class ItemController {
     private  String sample = "This is a test string";
 
     @Autowired
-    private IItemsRepository itemsRepo;
+    private ItemsService itemsService;
 
     //Test methods
     //region
@@ -49,7 +49,7 @@ public class ItemController {
     public ResponseEntity<Item> getItemByID(@PathVariable("id") Long id)
     {
         System.out.println("get item method");
-        Optional<Item> itemToReturn = itemsRepo.findById(id);
+        Optional<Item> itemToReturn = itemsService.findById(id);
         if(itemToReturn.isEmpty())
         {
             System.out.println("not found");
@@ -65,7 +65,7 @@ public class ItemController {
     public ResponseEntity<List<Item>> getAllItems()
     {
         System.out.println("get all items method");
-        List<Item> allItems = itemsRepo.findAll();
+        List<Item> allItems = itemsService.getAllItems();
 
         return new ResponseEntity<>(allItems, HttpStatus.OK);
 
@@ -76,7 +76,7 @@ public class ItemController {
     {
         try
         {
-            Item _item = itemsRepo.save(new Item(reqItem.getBody(), reqItem.getSubject()));
+            Item _item = itemsService.saveItem(new Item(reqItem.getBody(), reqItem.getSubject()));
             return new ResponseEntity<>(_item, HttpStatus.CREATED);
         }
         catch(Exception e)
@@ -90,7 +90,7 @@ public class ItemController {
     @PutMapping("/updateItem")
     public ResponseEntity<Item> updateItem(@RequestBody Item reqItem)
     {
-        Optional<Item> itemDB = itemsRepo.findById(reqItem.getId());
+        Optional<Item> itemDB = itemsService.findById(reqItem.getId());
         if(itemDB.isEmpty())
         {
             System.out.println("not found");
@@ -105,7 +105,7 @@ public class ItemController {
             itemToSave.setBody(reqItem.getBody());
 
 
-            itemsRepo.save(itemToSave);
+            itemsService.saveItem(itemToSave);
             return new ResponseEntity<>(itemToSave, HttpStatus.OK);
         }
 
@@ -115,14 +115,14 @@ public class ItemController {
     @DeleteMapping(path = "/deleteItem/{id}")
     public ResponseEntity<Item> deleteUser(@PathVariable("id") Long itemID)
     {
-        Optional<Item> itemDB = itemsRepo.findById(itemID);
+        Optional<Item> itemDB = itemsService.findById(itemID);
         if(itemDB.isEmpty())
         {
             System.out.println("not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         System.out.println("Item deleted");
-        itemsRepo.deleteById(itemID);
+        itemsService.deleteItemById(itemID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

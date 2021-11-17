@@ -9,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,19 +22,37 @@ public class UserService {
 
     private final IUserRepository userRepo;
 
-    private final BCryptPasswordEncoder pswdEncoder;
+    private final PasswordEncoder pswdEncoder;
 
 
     public User readByUsername(String username)
     {
         return userRepo.findByUsername(username).orElseThrow(EntityNotFoundException::new);
     }
+
     public Optional<User> findById(Long username)
     {
         return userRepo.findById(username);
     }
-    public void saveUser(User user){
+
+    public void saveUser(User user)
+    {
         userRepo.save(user);
+    }
+
+    public List<User> getAllUsers()
+    {
+        return userRepo.findAll();
+    }
+
+    public Boolean existsByUsername(String username)
+    {
+        return userRepo.existsByUsername(username);
+    }
+
+    public Boolean existsByEmail(String email)
+    {
+        return userRepo.existsByEmail(email);
     }
 
 
@@ -52,7 +72,6 @@ public class UserService {
 //        apiUser.setRole("USER");
 //        userRepo.save(apiUser);
 //    }
-
 
 
     //Changing password
@@ -85,7 +104,6 @@ public class UserService {
         return new ResponseEntity<>("Incorrect password inputted", HttpStatus.NOT_FOUND);
 
     }
-
 
 
     //Changing username

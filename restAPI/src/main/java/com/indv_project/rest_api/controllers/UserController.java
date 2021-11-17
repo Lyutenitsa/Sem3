@@ -15,12 +15,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/user")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 //@CrossOrigin(origins = "http://localhost:8081") //http://localhost:8080/testing")
 public class UserController {
 
@@ -28,6 +29,16 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PasswordEncoder pswdEncoder;
+
+    @GetMapping(path = "/getAll")
+    public ResponseEntity<?> getAllUsers()
+    {
+        List<User> dbUser = userService.getAllUsers();
+        if(dbUser.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(dbUser, HttpStatus.OK);
+    }
 
     @GetMapping(path = "/getUser/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id)

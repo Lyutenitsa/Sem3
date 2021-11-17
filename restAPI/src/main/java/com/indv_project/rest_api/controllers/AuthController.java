@@ -7,10 +7,10 @@ import com.indv_project.rest_api.payload.request.LoginRequest;
 import com.indv_project.rest_api.payload.request.UserCreateRequest;
 import com.indv_project.rest_api.payload.response.JWTResponse;
 import com.indv_project.rest_api.payload.response.StringResponse;
-import com.indv_project.rest_api.repositories.IRoleRepository;
-import com.indv_project.rest_api.repositories.IUserRepository;
 import com.indv_project.rest_api.security.jwt.JWTUtils;
 import com.indv_project.rest_api.security.services.UserDetailsImplementation;
+import com.indv_project.rest_api.services.RoleService;
+import com.indv_project.rest_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,25 +26,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
 public class AuthController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    IUserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    IRoleRepository roleRepository;
+    private RoleService roleService;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Autowired
-    JWTUtils jwtUtils;
+    private JWTUtils jwtUtils;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest)
@@ -60,20 +60,20 @@ public class AuthController {
         UserDetailsImplementation userDetails = (UserDetailsImplementation) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JWTResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails
-                .getEmail(), roles));
+        System.out.println("Successful Login");
+        return ResponseEntity.ok(//"login");
+                new JWTResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserCreateRequest signUpRequest)
     {
-        if(userRepository.existsByUsername(signUpRequest.getUsername()))
+        if(userService.existsByUsername(signUpRequest.getUsername()))
         {
             return ResponseEntity.badRequest().body(new StringResponse("Error: Username is already taken!"));
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail()))
+        if(userService.existsByEmail(signUpRequest.getEmail()))
         {
             return ResponseEntity.badRequest().body(new StringResponse("Error: Email is already in use!"));
         }
@@ -87,7 +87,7 @@ public class AuthController {
 
         if(strRoles == null)
         {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            Role userRole = roleService.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         }
@@ -97,13 +97,13 @@ public class AuthController {
                 switch(role)
                 {
                     case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                        Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
                     default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                        Role userRole = roleService.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
@@ -111,7 +111,7 @@ public class AuthController {
         }
 
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.saveUser(user);
 
         return ResponseEntity.ok(new StringResponse("User registered successfully!"));
     }
