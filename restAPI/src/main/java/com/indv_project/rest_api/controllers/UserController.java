@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequestMapping(path = "/api/user")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-//@CrossOrigin(origins = "http://localhost:8081") //http://localhost:8080/testing")
+@CrossOrigin(origins = "http://localhost:3000") //http://localhost:8080/testing")
 public class UserController {
 
     @Autowired

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/item")
-@CrossOrigin(origins = "http://localhost:8081") //http://localhost:8080/testing")
+@CrossOrigin(origins = "*") //http://localhost:8080/testing")
 public class ItemController {
 
     private  String sample = "This is a test string";

@@ -46,7 +46,7 @@ const validPassword = (value) => {
   }
 };
 
-const Register = (props) => {
+const SignUp = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -171,4 +171,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default SignUp;
