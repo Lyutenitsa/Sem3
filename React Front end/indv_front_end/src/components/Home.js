@@ -6,25 +6,27 @@ const Home = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    UserService.getPublicContent().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const _content =
-          (error.response && error.response.data) ||
-          error.message ||
-          error.toString();
+        setContent("PUBLIC CONTENT");
 
-        setContent(_content);
-      }
-    );
+    // UserService.getPublicContent().then(
+    //   (response) => {
+    //     setContent(response.data);
+    //   },
+    //   (error) => {
+    //     const _content =
+    //       (error.response && error.response.data) ||
+    //       error.message ||
+    //       error.toString();
+
+    //     setContent(_content);
+    //   }
+    // );
   }, []);
 
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        <h3>{JSON.stringify(content)}</h3>
       </header>
     </div>
   );

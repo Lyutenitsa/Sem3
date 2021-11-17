@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import authService from "../services/auth.service";
 
 import UserService from "../services/user.service";
+import EventBus from "../common/EventBus";
 
-const User = () => {
+const BoardAdmin = () => {
   const [content, setContent] = useState("");
-  const currentUser = authService.getCurrentUser();
 
   useEffect(() => {
-    console.log(currentUser.token);
-    console.log(currentUser.id);
-    
-    // UserService.getUserBoard().then(
+    setContent("ADMIN CONTENT");
+    // UserService.getAdminBoard().then(
     //   (response) => {
     //     setContent(response.data);
     //   },
@@ -23,13 +20,16 @@ const User = () => {
     //       error.message ||
     //       error.toString();
 
-    //     setContent("THIS IS CONTENT!! BOYYYYYSSSS");
+    //     setContent(_content);
+
+    //     if (error.response && error.response.status === 401) {
+    //       EventBus.dispatch("logout");
+    //     }
     //   }
     // );
   }, []);
-  setContent("THIS IS CONTENT!! BOYYYYYSSSS");
+
   return (
-    
     <div className="container">
       <header className="jumbotron">
         <h3>{content}</h3>
@@ -38,4 +38,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default BoardAdmin;
