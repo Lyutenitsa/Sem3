@@ -3,15 +3,17 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AuthService from "./services/auth.service";
+import AuthService from "./services/AuthServices/auth.service";
 
-import Login from "./components/Login";
-import Register from "./components/Signup";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Signup";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import User from "./components/User";
+import ToDoList from "./components/ToDos/ToDoList";
 // import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import Lists from "./components/Lists/Lists";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -53,25 +55,15 @@ const App = () => {
             </li>
           )}
 
-          {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
-                Admin Board
-              </Link>
-            </li>
-          )}
-
-          {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
-          )}
+           
         </div>
-
         {currentUser ? (
           <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/list"} className="nav-link">
+                List of ToDo s 
+              </Link>
+            </li>
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
                 {currentUser.username}
@@ -83,6 +75,7 @@ const App = () => {
               </a>
             </li>
           </div>
+
         ) : (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
@@ -107,7 +100,7 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
           <Route path="/user" component={User} />
-          {/* <Route path="/mod" component={BoardModerator} /> */}
+          <Route path="/list" component={Lists} />
           <Route path="/admin" component={BoardAdmin} />
         </Switch>
       </div>

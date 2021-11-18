@@ -24,6 +24,14 @@ public class Item {
     @NonNull
     private String subject;
 
+    @Column(name = "completed")
+    private Boolean complete;
+
+    @Override
+    public String toString()
+    {
+        return "Item{" + "id=" + this.getId() + ", body='" + this.getSubject() + '\'' + ", subject='" + this.getBody() + '\'' + '}';
+    }
 
     public Item(String body, String subject)
     {
@@ -34,10 +42,5 @@ public class Item {
 
     }
 
-    @Override
-    public String toString()
-    {
-        return "Item{ " + "id = '" + this.getId() + '\'' + '}';
-    }
 }
 

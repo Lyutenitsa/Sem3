@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import authService from "../services/auth.service";
+import authService from "../services/AuthServices/auth.service";
 
-import UserService from "../services/user.service";
+// import UserService from "../services/user.service";
 
 const User = () => {
   const [content, setContent] = useState("");

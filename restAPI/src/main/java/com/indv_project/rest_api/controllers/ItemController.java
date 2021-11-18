@@ -76,6 +76,7 @@ public class ItemController {
     {
         try
         {
+            System.out.println(reqItem);
             Item _item = itemsService.saveItem(new Item(reqItem.getBody(), reqItem.getSubject()));
             return new ResponseEntity<>(_item, HttpStatus.CREATED);
         }
