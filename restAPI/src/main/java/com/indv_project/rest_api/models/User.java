@@ -1,6 +1,7 @@
 package com.indv_project.rest_api.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.indv_project.rest_api.payload.response.UserResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,12 +36,13 @@ public class User {
     @Email
     private String email;
 
+    @JsonIgnore
     @NotBlank
     @Size(max = 120)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();

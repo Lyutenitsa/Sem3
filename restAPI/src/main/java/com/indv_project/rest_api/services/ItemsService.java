@@ -5,6 +5,7 @@ import com.indv_project.rest_api.repositories.IItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,16 @@ public class ItemsService {
         return itemsRepository.save(item);
     }
 
-    public List<Item> getAllItems(){
-        return itemsRepository.findAll();
+    public List<Item> getAllItems(Long id){
+//        return itemsRepository.findItemByUserId(id);
+        return itemsRepository.findAllByUserId(id);
     }
 
     public void deleteItemById(Long id){
         itemsRepository.deleteById(id);
+    }
+
+    public void deleteMultipleById(Long[] ids){
+        itemsRepository.deleteAllById(Arrays.asList(ids));
     }
 }

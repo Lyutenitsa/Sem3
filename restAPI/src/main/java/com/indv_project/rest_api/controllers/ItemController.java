@@ -1,26 +1,33 @@
 package com.indv_project.rest_api.controllers;
 
 import com.indv_project.rest_api.models.Item;
+import com.indv_project.rest_api.models.User;
 import com.indv_project.rest_api.services.ItemsService;
+import com.indv_project.rest_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping(path = "/api/item")
-@CrossOrigin(origins = "*") //http://localhost:8080/testing")
+@CrossOrigin(origins = "*")
+//http://localhost:8080")
 public class ItemController {
 
-    private  String sample = "This is a test string";
+    private String sample = "This is a test string";
 
     @Autowired
     private ItemsService itemsService;
+
+    @Autowired
+    private UserService userService;
 
     //Test methods
     //region
@@ -60,30 +67,36 @@ public class ItemController {
 
     }
 
-    @GetMapping(path = "/getAllItems")
+    @GetMapping(path = "/getAllItems/{id}")
     @ResponseBody
-    public ResponseEntity<List<Item>> getAllItems()
+    public ResponseEntity<List<Item>> getAllItems(@PathVariable Long id)
     {
         System.out.println("get all items method");
-        List<Item> allItems = itemsService.getAllItems();
+        List<Item> allItems = itemsService.getAllItems(id);
 
         return new ResponseEntity<>(allItems, HttpStatus.OK);
 
     }
 
     @PostMapping("/createItem")
-    public ResponseEntity<Item> createItem(@RequestBody Item reqItem)
+    public ResponseEntity<?> createItem(@RequestBody Item reqItem)
     {
         try
         {
-            System.out.println(reqItem);
-            Item _item = itemsService.saveItem(new Item(reqItem.getBody(), reqItem.getSubject()));
+            Optional<User> _user = userService.findById(reqItem.getUser().getId());
+            userService.saveUser(_user.get());
+
+            System.out.println(reqItem.toString());
+
+            reqItem.setCompleted(Boolean.FALSE);
+
+            Item _item = itemsService.saveItem(reqItem);
             return new ResponseEntity<>(_item, HttpStatus.CREATED);
         }
         catch(Exception e)
         {
             System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -99,7 +112,7 @@ public class ItemController {
         }
         else
         {
-            System.out.println("user found" + itemDB.get().getId());
+            System.out.println("item found" + itemDB.get().getId());
 
             Item itemToSave = itemDB.get();
             itemToSave.setSubject(reqItem.getSubject());
@@ -114,7 +127,7 @@ public class ItemController {
 
 
     @DeleteMapping(path = "/deleteItem/{id}")
-    public ResponseEntity<Item> deleteUser(@PathVariable("id") Long itemID)
+    public ResponseEntity<Item> deleteItem(@PathVariable("id") Long itemID)
     {
         Optional<Item> itemDB = itemsService.findById(itemID);
         if(itemDB.isEmpty())
@@ -124,6 +137,44 @@ public class ItemController {
         }
         System.out.println("Item deleted");
         itemsService.deleteItemById(itemID);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/deleteItems")
+    public ResponseEntity<?> deleteMultipleItems(@RequestBody Long[] ids)
+    {
+        System.out.println("Deleting items endpoint");
+        System.out.println(Arrays.toString(ids));
+
+//        if(ids.isEmpty())
+//        {
+//            System.out.println("Must be not empty");
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+        System.out.println("Multiple items deleted");
+        itemsService.deleteMultipleById(ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/deleteItems/{ids}")
+    public ResponseEntity<?> deleteMultipleItems(@PathVariable("ids") List<String> ids)
+    {
+        System.out.println("Deleting items endpoint");
+        System.out.println(ids);
+
+        if(ids.isEmpty())
+        {
+            System.out.println("Must be not empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        for(String id : ids)
+        {
+            System.out.println(id);
+            itemsService.deleteItemById(Long.parseLong(id));
+        }
+
+        System.out.println("Multiple items deleted");
+//        itemsService.deleteMultipleById(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

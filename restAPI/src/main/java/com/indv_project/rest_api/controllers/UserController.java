@@ -30,8 +30,8 @@ public class UserController {
     @Autowired
     private PasswordEncoder pswdEncoder;
 
-    @GetMapping(path = "/getAll")
-    public ResponseEntity<?> getAllUsers()
+    @GetMapping(path = "/getAll/{user_id}")
+    public ResponseEntity<?> getAllUsers(@PathVariable Long user_id)
     {
         List<User> dbUser = userService.getAllUsers();
         if(dbUser.isEmpty()){

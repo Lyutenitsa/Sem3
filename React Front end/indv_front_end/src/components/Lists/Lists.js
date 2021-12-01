@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import data from "../../TestDataTod.json"
+// import data from "../../TestDataTod.json"
 
 import ListHeader from "./ListHeader";
 import ToDoList from "../ToDos/ToDoList";
@@ -9,24 +9,25 @@ import ItemService from "../../services/ItemsService/item.service";
 
 
 const Lists = () => {
-  var [toDoList, setToDoList] = useState(data);
+  var [toDoList, setToDoList] = useState();
+  var [empty, setEmpty] = useState(false);
 
   function getItems() {
     ItemService.getAllItems().then((response) => {
       if (response.data !== null) {
-        console.log("why infinite");
         toDoList = setToDoList(response.data);
       } else {
         console.log("response,data === null");
         const data = response.data;
-        // [ toDoList, setToDoList ] = setToDoList(data);
       }
     });
   }
-  function addNewItem(item) {
-    ItemService.addItem(item);
-    getItems();
-  }
+  // function addNewItem(subject, body, completed) {
+  //   ItemService.addItem(subject, body, completed);
+  //   getItems();
+
+  //   console.log("this should reset the page")
+  // }
 
   const handleToggle = (id) => {
     let mapped = toDoList.map(task => {
@@ -36,27 +37,60 @@ const Lists = () => {
   }
 
   const handleFilter = () => {
+    // let filtered = toDoList.filter(task => {
+    //   return !task.completed;
+    // });
+    // setToDoList(filtered);
+    var ids = new Array();
+
     let filtered = toDoList.filter(task => {
-      return !task.completed;
+      if (task.completed) {
+        ids.push(task.id);
+        return false;
+      }
+      else {
+        return true;
+      }
     });
+
     setToDoList(filtered);
+    console.log("List of ids type: ", typeof ids);
+    ItemService.deleteItems(ids)
+      .then(() => {
+        console.log("deleted!!!");
+      }, (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        console.log(resMessage);
+      }
+      );
+
   }
 
   const addTask = (userInput) => {
-    // let copy = [...toDoList];
-    // copy = [...copy, { id: toDoList.length + 1, subject: userInput, completed: false }];
-    // setToDoList(copy);
-
-    // let newItem = { "id": 69, "subject": userInput, "body": "body from front end", "completed": false };
-    // console.log(newItem.id);
-
-    let id = 69;
-    let subject = userInput;
-    let body = "body from front end SUCC";
-    let completed = false;
-
-    addNewItem(id, subject, body, completed);
+    if (userInput !== "") {
+      let subject = userInput;
+      let body = "body from react";
+      let completed = false;
+      console.log(subject, body, completed);
+      // addNewItem(subject, body, completed);
+      ItemService.addItem(subject, body, completed)
+        .then(() => {
+          getItems();
+          console.log("updating items");
+        });
+      setEmpty(false);
+    }
+    else {
+      setEmpty(true);
+    }
   }
+
 
   useEffect(() => {
     getItems();
@@ -67,6 +101,12 @@ const Lists = () => {
       <ListHeader />
       <ToDoList toDoList={toDoList} handleToggle={handleToggle} handleFilter={handleFilter} />
       <ToDoForm addTask={addTask} />
+      {empty ?
+        <div style={{ color: "red" }}>Don't leave empty</div>
+        :
+        <div class="not empty" />
+      }
+
     </div>
   );
 }
