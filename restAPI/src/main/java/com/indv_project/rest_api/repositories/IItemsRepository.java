@@ -10,8 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface IItemsRepository extends JpaRepository<Item, Long> {
-    Item findItemByBody(String body);
-
+    Item save(Item item);
     Optional<Item> findById(Long aLong);
     List<Item> findAllByUserId(Long id);
+    void deleteById(Long id);
+//    void deleteAllById(List<Long> ids);
+
 }

@@ -24,15 +24,9 @@ public class UserService {
 
     private final PasswordEncoder pswdEncoder;
 
-
-    public User readByUsername(String username)
+    public Optional<User> findById(Long id)
     {
-        return userRepo.findByUsername(username).orElseThrow(EntityNotFoundException::new);
-    }
-
-    public Optional<User> findById(Long username)
-    {
-        return userRepo.findById(username);
+        return userRepo.findById(id);
     }
 
     public void saveUser(User user)
@@ -54,24 +48,6 @@ public class UserService {
     {
         return userRepo.existsByEmail(email);
     }
-
-
-    // CREATING A USER ON SIGN UP
-//    public void createUser(UserCreateRequest userCreateRequest)
-//    {
-//        User apiUser = new User();
-//        Optional<User> byUsername = userRepo.findByUsername(userCreateRequest.getUsername());
-//        if(byUsername.isPresent())
-//        {
-//            throw new RuntimeException("Username already in use. Please input a different username.");
-//        }
-//        apiUser.setUsername(userCreateRequest.getUsername());
-//        apiUser.setPassword(pswdEncoder.encode(userCreateRequest.getPassword()));
-//
-//        //SETS DEFAULT ROLE OF USER
-//        apiUser.setRole("USER");
-//        userRepo.save(apiUser);
-//    }
 
 
     //Changing password

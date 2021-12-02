@@ -12,11 +12,20 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    public Item(String body, User user, @NonNull @NotBlank String subject, Boolean completed)
+    {
+        this.body = body;
+        this.user = user;
+        this.subject = subject;
+        this.completed = completed;
+    }
 
     @Column(name = "body")
     private String body;

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -140,24 +141,24 @@ public class ItemController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/deleteItems")
-    public ResponseEntity<?> deleteMultipleItems(@RequestBody Long[] ids)
-    {
-        System.out.println("Deleting items endpoint");
-        System.out.println(Arrays.toString(ids));
-
-//        if(ids.isEmpty())
-//        {
-//            System.out.println("Must be not empty");
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-        System.out.println("Multiple items deleted");
-        itemsService.deleteMultipleById(ids);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @DeleteMapping(path = "/deleteItems")
+//    public ResponseEntity<?> deleteMultipleItems(@RequestBody Long[] ids)
+//    {
+//        System.out.println("Deleting items endpoint");
+//        System.out.println(Arrays.toString(ids));
+//
+////        if(ids.isEmpty())
+////        {
+////            System.out.println("Must be not empty");
+////            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+////        }
+//        System.out.println("Multiple items deleted");
+//        itemsService.deleteMultipleById(ids);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     @DeleteMapping(path = "/deleteItems/{ids}")
-    public ResponseEntity<?> deleteMultipleItems(@PathVariable("ids") List<String> ids)
+    public ResponseEntity<?> deleteMultipleItems(@PathVariable("ids") ArrayList<String> ids)
     {
         System.out.println("Deleting items endpoint");
         System.out.println(ids);
