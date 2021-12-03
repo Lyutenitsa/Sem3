@@ -3,10 +3,12 @@ package com.indv_project.rest_api.repositories;
 import com.indv_project.rest_api.models.ERole;
 import com.indv_project.rest_api.models.Role;
 import com.indv_project.rest_api.models.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -37,6 +39,12 @@ class IUserRepositoryTest {
         this.user.setEmail(this.email);
         this.user.setPassword(this.password);
         this.user.setRoles(this.roles);
+    }
+
+    @AfterEach
+    void tearDown()
+    {
+        userRepoTest.deleteAll();
     }
 
     @Test

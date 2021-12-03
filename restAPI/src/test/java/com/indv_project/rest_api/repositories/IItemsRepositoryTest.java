@@ -3,6 +3,8 @@ package com.indv_project.rest_api.repositories;
 import com.indv_project.rest_api.models.Item;
 import com.indv_project.rest_api.models.Role;
 import com.indv_project.rest_api.models.User;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,21 @@ class IItemsRepositoryTest {
 
     }
 
+//    @AfterEach
+//    void tearDown()
+//    {
+//        userRepoTest.deleteAll();
+//        itemsRepoTest.deleteAll();
+//    }
+
+
+//    @AfterAll
+//    void afterAll()
+//    {
+//        userRepoTest.deleteAll();
+//        itemsRepoTest.deleteAll();
+//    }
+
     @Test
     void save()
     {
@@ -91,6 +108,7 @@ class IItemsRepositoryTest {
         assertFalse(dbItems.isEmpty());
         assertEquals(this.item, dbItems.get(0));
     }
+
     @Test
     void findAllByUserIdMultiple()
     {
@@ -109,9 +127,10 @@ class IItemsRepositoryTest {
         System.out.println(dbItems);
 
         assertFalse(dbItems.isEmpty());
-        assertEquals(2,dbItems.size());
+        assertEquals(2, dbItems.size());
         assertEquals(newItem, dbItems.get(1));
     }
+
     @Test
     void findAllByUserIdWrongId()
     {

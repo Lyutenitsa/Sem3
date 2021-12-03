@@ -59,7 +59,7 @@ public class UserService {
         if(_user.isEmpty())
         {
             System.out.println("User not found");
-            return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User with that username was not found", HttpStatus.BAD_REQUEST);
         }
         User dbUser = _user.get();
 
@@ -77,7 +77,7 @@ public class UserService {
         }
         System.out.println(dbUser.getPassword());
         System.out.println(reqPassword);
-        return new ResponseEntity<>("Incorrect password inputted", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Incorrect password inputted", HttpStatus.UNAUTHORIZED);
 
     }
 
@@ -94,7 +94,7 @@ public class UserService {
         if(_user.isEmpty())
         {
             System.out.println("User not found");
-            return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User with that username was not found", HttpStatus.BAD_REQUEST);
         }
 
         User dbUser = _user.get();
@@ -111,14 +111,14 @@ public class UserService {
 
         System.out.println(dbUser.getPassword());
         System.out.println(reqPassword);
-        return new ResponseEntity<>("Incorrect Password inputted", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("Incorrect password inputted", HttpStatus.UNAUTHORIZED);
     }
 
     public ResponseEntity<String> deleteUser(Long id)
     {
         Optional<User> dbUser = userRepo.findById(id);
         if(dbUser.isEmpty())
-            return new ResponseEntity<>("User with that username was not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User with that username was not found", HttpStatus.BAD_REQUEST);
 
         userRepo.deleteById(id);
         return new ResponseEntity<>("deleted", HttpStatus.OK);
