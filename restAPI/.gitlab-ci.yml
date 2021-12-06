@@ -3,7 +3,7 @@ before_script:
 
 stages:
   - clean
-  # - sonarqube
+  - sonarqube
   - build
   - test
   - assemble
@@ -20,11 +20,11 @@ clean:
     paths:
       - build/libs/*.jar
 
-# sonarqube:
-#  stage: sonarqube
-#  script:
-#    - cd restAPI
-#    - ./gradlew sonarqube -PsonarPassword=1207
+sonarqube:
+ stage: sonarqube
+ script:
+   - cd restAPI
+   - ./gradlew sonarqube -PsonarPassword=1207
 
 build:
   stage: build
