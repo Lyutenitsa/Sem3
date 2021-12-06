@@ -24,7 +24,7 @@ clean:
 #  stage: sonarqube
 #  script:
 #    - cd restAPI
-#    - ./gradlew sonarqube
+#    - ./gradlew sonarqube -PsonarPassword=1207
 
 build:
   stage: build
