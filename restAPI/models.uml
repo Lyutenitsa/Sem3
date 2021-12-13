@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.indv_project.rest_api.models</OriginalElement>
+  <nodes>
+    <node x="-29.05911444246965" y="194.96893594003552">com.indv_project.rest_api.models.User</node>
+    <node x="-565.202148211112" y="178.6368905030523">com.indv_project.rest_api.models.ERole</node>
+    <node x="338.52793447183365" y="196.3985008886484">com.indv_project.rest_api.models.Item</node>
+    <node x="-287.52793447183376" y="189.69190943512865">com.indv_project.rest_api.models.Role</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.indv_project.rest_api.models.Role" target="com.indv_project.rest_api.models.ERole">
+      <point x="-39.5" y="-105.0" />
+      <point x="-40.5" y="71.5" />
+    </edge>
+    <edge source="com.indv_project.rest_api.models.Item" target="com.indv_project.rest_api.models.User">
+      <point x="-65.0" y="-237.0" />
+      <point x="234.8153156633955" y="343.41921026195814" />
+      <point x="231.86407541921028" y="347.82999768178655" />
+      <point x="-47.0" y="215.0" />
+    </edge>
+    <edge source="com.indv_project.rest_api.models.User" target="com.indv_project.rest_api.models.Role">
+      <point x="0.0" y="-215.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9068675543097406" x="46.325745526910055" y="467.46773819643" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

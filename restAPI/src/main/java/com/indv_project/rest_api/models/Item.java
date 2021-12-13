@@ -19,13 +19,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Item(String body, User user, @NonNull @NotBlank String subject, Boolean completed)
-    {
-        this.body = body;
-        this.user = user;
-        this.subject = subject;
-        this.completed = completed;
-    }
+    @Column(name = "subject")
+    @NonNull
+    @NotBlank
+    private String subject;
 
     @Column(name = "body")
     private String body;
@@ -34,13 +31,16 @@ public class Item {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "subject")
-    @NonNull
-    @NotBlank
-    private String subject;
-
     @Column(name = "completed")
     private Boolean completed;
+
+    public Item(String body, User user, @NonNull @NotBlank String subject, Boolean completed)
+    {
+        this.body = body;
+        this.user = user;
+        this.subject = subject;
+        this.completed = completed;
+    }
 
     @Override
     public String toString()
