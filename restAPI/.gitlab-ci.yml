@@ -16,9 +16,9 @@ clean:
     - cd restAPI
     - ./gradlew clean
     - echo "Clean script over"
-  artifacts:
-    paths:
-      - build/libs/*.jar
+  # artifacts:
+  #   paths:
+  #     - build/libs/*.jar
 
 sonarqube:
  stage: sonarqube
