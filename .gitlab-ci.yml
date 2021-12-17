@@ -18,8 +18,8 @@ buildFrontEnd:
     script:
         - cd reactFrontEnd
         - echo "Build stage started"
-        - npm install
-        - false npm run build
+        # - npm install
+        - npm run build
         - echo "Build successful"
     artifacts:
         expire_in: 1 hour
