@@ -1,0 +1,17 @@
+stages:
+    - build
+    
+build:
+    stage: build
+    tags: 
+        - front-end
+    script:
+	- cd React Front end
+        - echo "Building deploy package"
+        - yarn install
+        - yarn build
+        - echo "Build successful"
+    artifacts:
+        expire_in: 1 hour
+        paths:
+            - build

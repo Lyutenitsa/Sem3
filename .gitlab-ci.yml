@@ -1,2 +1,3 @@
 include:
 - local: 'restAPI/.gitlab-ci.yml'
+- local: 'React Front end/.gitlab-ci.yml'
