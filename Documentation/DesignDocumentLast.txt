@@ -1,0 +1,7 @@
+def main():
+	Print(‘Hello World’)
+
+If _name_ == ‘_main_’
+	main()
+
+
