@@ -11,6 +11,6 @@ build:
         - yarn build 
         - echo "Build successful"
     artifacts:
-        expire: 1 hour
+        expire_in: 1 hour
         paths:
             - build
