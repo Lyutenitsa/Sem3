@@ -1,5 +1,80 @@
-include:
-    - local: 'restAPI/.gitlab-ci.yml'
-    - local: 'reactFrontEnd/.gitlab-ci.yml'
+stages:
+    - buildFrontEnd
+buildFrontEnd:
+    stage: buildFrontEnd
+    tags: 
+        - front-end
+    script:
+        - cd reactFrontEnd
+        - echo "Build stage started"
+        - yarn install
+        - yarn build 
+        - echo "Build successful"
+    artifacts:
+        expire_in: 1 hour
+        paths:
+            - build
 
+before_script:
+- set GRADLE_USER_HOME=$(pwd)/.gradle
+  
+clean:
+  stage: clean
+  tags: 
+    - back-end
+  script:
+    - cd restAPI
+    - ./gradlew clean
+    - echo "Clean script over"
+  # artifacts:
+  #   paths:
+  #     - build/libs/*.jar
+
+sonarqube:
+ stage: sonarqube
+ tags: 
+   - back-end
+ script:
+   - cd restAPI
+   - ./gradlew sonarqube -PsonarPassword=1207
+
+build:
+  stage: build
+  tags: 
+    - back-end
+  script:
+    - cd restAPI
+    - ./gradlew build
+    - echo "Build script over"
+  artifacts:
+    paths:
+      - build/libs/*.jar
+
+test:
+  stage: test
+  tags: 
+    - back-end
+  script:
+    - cd restAPI
+    - ./gradlew test
+    - echo "Test script over"
+  artifacts:
+    paths:
+      - build/libs/*.jar  
+
+assemble:
+  stage: assemble
+  tags: 
+    - back-end
+  script:
+    - cd restAPI
+    - ./gradlew assemble
+    - echo "Assemble script over"
+  artifacts:
+    paths:
+      - build/libs/*.jar
+
+      
+after_script:
+  - echo "This is form the shell runner. After Script"
 
