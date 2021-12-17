@@ -18,8 +18,8 @@ buildFrontEnd:
     script:
         - cd reactFrontEnd
         - echo "Build stage started"
-        - yarn install
-        - yarn build 
+        - npm install
+        - npm  build 
         - echo "Build successful"
     artifacts:
         expire_in: 1 hour
