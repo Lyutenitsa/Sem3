@@ -1,3 +1,3 @@
 include: 
-  - restAPI/.gitlab-ci.yml
-  - reactFrontEnd/.gitlab-ci.yml
+  - local: 'restAPI/.gitlab-ci.yml'
+  - local: 'reactFrontEnd/.gitlab-ci.yml'
