@@ -1,3 +1,7 @@
+before_script:
+- set GRADLE_USER_HOME=$(pwd)/.gradle
+- npm install -g yarn
+
 stages:
   - buildFrontEnd
   - clean
@@ -5,6 +9,8 @@ stages:
   - build
   - test
   - assemble
+
+
 buildFrontEnd:
     stage: buildFrontEnd
     tags: 
@@ -19,9 +25,6 @@ buildFrontEnd:
         expire_in: 1 hour
         paths:
             - build
-
-before_script:
-- set GRADLE_USER_HOME=$(pwd)/.gradle
   
 clean:
   stage: clean
