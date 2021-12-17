@@ -1,6 +1,6 @@
 before_script:
 - set GRADLE_USER_HOME=$(pwd)/.gradle
-- npm install -g yarn
+# - npm install -g yarn
 
 stages:
   - buildFrontEnd
@@ -19,7 +19,7 @@ buildFrontEnd:
         - cd reactFrontEnd
         - echo "Build stage started"
         - npm install
-        - npm run build 
+        - false npm run build
         - echo "Build successful"
     artifacts:
         expire_in: 1 hour
