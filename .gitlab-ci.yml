@@ -95,6 +95,7 @@ deploy-front-end:
     - echo "Deploy successful"
         
 deploy-back-end:
+  stage: deployBackEnd
   tags: 
     - front-end
   script:
