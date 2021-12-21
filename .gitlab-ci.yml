@@ -84,24 +84,24 @@ build:
 #     paths:
 #       - build/libs/*.jar
 
-  deploy-front-end:
-    stage: deployFrontEnd
-    tags: 
-        - front-end
-    script:
-        - cd reactFrontEnd
-        - echo "Deploy stage started"
-        - docker run -it -p 3000:3000 --rm --name front-end react-front-end .
-        - echo "Deploy successful"
+deploy-front-end:
+  stage: deployFrontEnd
+  tags: 
+    - front-end
+  script:
+    - cd reactFrontEnd
+    - echo "Deploy stage started"
+    - docker run -it -p 3000:3000 --rm --name front-end react-front-end .
+    - echo "Deploy successful"
         
 deploy-back-end:
-    tags: 
-        - front-end
-    script:
-        - cd restAPI
-        - echo "Deploy stage back-end started"
-        - docker run -it -p 8000:8000 --rm --name back-end spring-api .
-        - echo "Deploy successful"
+  tags: 
+    - front-end
+  script:
+    - cd restAPI
+    - echo "Deploy stage back-end started"
+    - docker run -it -p 8000:8000 --rm --name back-end spring-api .
+    - echo "Deploy successful"
 
 after_script:
   - echo "This is form the shell runner. After Script"
