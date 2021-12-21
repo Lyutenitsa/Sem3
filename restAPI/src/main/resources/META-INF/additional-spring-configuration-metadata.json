@@ -4,5 +4,10 @@
       "name": "rest_api.app.jwtExpirationMs",
       "type": "java.lang.String",
       "description": "Description for rest_api.app.jwtExpirationMs."
-  }
-] }
+    },
+    {
+      "name": "rest_api.app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for rest_api.app.jwtSecret."
+    }
+  ] }

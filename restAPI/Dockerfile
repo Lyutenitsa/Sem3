@@ -1,9 +1,19 @@
-FROM openjdk:8-jdk-alpine
+FROM gradle:latest AS build
 
-WORKDIR ../productivity-app
+COPY --chown=gradle:gradle . /home/gradle/src
 
-COPY . .
+WORKDIR /home/gradle/src
 
-RUN gradle build
+#RUN gradle build --no-daemon
 
-CMD gradle build
+FROM openjdk:15
+
+EXPOSE 8080
+
+RUN mkdir /app
+
+
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
+
+
+ENTRYPOINT ["java", "-jar","/app/spring-boot-application.jar"]
