@@ -15,10 +15,11 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
 

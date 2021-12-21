@@ -2,12 +2,15 @@ package com.indv_project.rest_api.repositories;
 
 import com.indv_project.rest_api.models.Item;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@ComponentScan("com.yawin")
 @Repository
 public interface IItemsRepository extends JpaRepository<Item, Long> {
     Item save(Item item);

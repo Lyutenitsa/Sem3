@@ -2,6 +2,7 @@ package com.indv_project.rest_api.security.services;
 
 import com.indv_project.rest_api.models.User;
 import com.indv_project.rest_api.repositories.IUserRepository;
+import com.indv_project.rest_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDetailsServiceImplementation  implements UserDetailsService {
 
     @Autowired
-    IUserRepository userRepository;
+    UserService userRepository;
 
     @Override
     @Transactional

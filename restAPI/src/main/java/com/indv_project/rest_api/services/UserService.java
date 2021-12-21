@@ -6,6 +6,7 @@ import com.indv_project.rest_api.payload.request.ChangeUsernameRequest;
 import com.indv_project.rest_api.payload.request.UserCreateRequest;
 import com.indv_project.rest_api.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,13 +21,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final IUserRepository userRepo;
+    @Autowired
+    IUserRepository userRepo;
 
     private final PasswordEncoder pswdEncoder;
 
     public Optional<User> findById(Long id)
     {
         return userRepo.findById(id);
+    }
+
+    public Optional<User> findByUsername(String username)
+    {
+        return userRepo.findByUsername(username);
     }
 
     public void saveUser(User user)
