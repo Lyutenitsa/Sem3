@@ -9,7 +9,7 @@ stages:
   - build
   # - test
   # - assemble
-  # - deployFrontEnd
+  - dockerComposeDeployment
   # - deployBackEnd
 
 
@@ -54,7 +54,7 @@ build:
     - back-end
   script:
     - cd restAPI
-    - ./gradlew build
+    - ./gradlew clean build
     - echo "Build script over"
   artifacts:
     paths:
@@ -72,35 +72,35 @@ build:
 #     paths:
 #       - build/libs/*.jar  
 
-# assemble:
-#   stage: assemble
-#   tags: 
-#     - back-end
-#   script:
-#     - cd restAPI
-#     - ./gradlew assemble
-#     - echo "Assemble script over"
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar
+dockerComposeDeployment:
+  stage: dockerComposeDeployment
+  tags: 
+    - front-end
+  script:
+    - dir
+    - echo "Deploy stage started"
+    - docker-compose up 
+    - echo "Deploy successful"
 
 # deploy-front-end:
 #   stage: deployFrontEnd
 #   tags: 
 #    - front-end
 #  script:
-#    - cd reactFrontEnd
+#   - cd reactFrontEnd
 #   - echo "Deploy stage started"
+#   - docker build -t react-front-end .
 #   - docker run -it -p 3000:3000 --rm --name front-end react-front-end .
 #   - echo "Deploy successful"
         
-#deploy-back-end:
+# deploy-back-end:
 #  stage: deployBackEnd
 #  tags: 
 #    - front-end
 #  script:
 #    - cd restAPI
 #    - echo "Deploy stage back-end started"
+#    - docker build -t spring-api .
 #    - docker run -it -p 8000:8000 --rm --name back-end spring-api .
 #    - echo "Deploy successful"
 
