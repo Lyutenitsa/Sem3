@@ -34,12 +34,12 @@ public class Item {
     @Column(name = "completed")
     private Boolean completed;
 
-    public Item(String body, User user, @NonNull @NotBlank String subject, Boolean completed)
+    public Item(String body, User user, @NonNull @NotBlank String subject)
     {
         this.body = body;
         this.user = user;
         this.subject = subject;
-        this.completed = completed;
+        this.completed = Boolean.FALSE;
     }
 
     @Override

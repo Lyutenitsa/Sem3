@@ -9,7 +9,7 @@ const ToDo = ({todo, handleToggle}) =>{
         return (
             <div 
             id={todo.id} key={todo.id + todo.subject} name="todo" value={todo.id} 
-            onClick={handleClick} className={todo.completed ? "todo strike" : "todo"}>
+            onClick={handleClick} className={todo.completed ? "todo strike" : "todo" }>
                 {todo.subject}
             </div>   
         );
@@ -18,7 +18,7 @@ const ToDo = ({todo, handleToggle}) =>{
         return (
             <div 
             id={todo.id} key={todo.id + todo.subject} name="todo" value={todo.id} 
-             onClick={handleClick} className={todo.completed ? "todo strike" : "todo"}
+             onClick={handleClick} className={todo.completed ?'todo-row complete' : 'todo-row'}
             >
             {todo.subject}
             </div>   

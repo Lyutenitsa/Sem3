@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import data from "../../TestDataTod.json"
 
-import ListHeader from "./ListHeader";
-import ToDoList from "../ToDos/ToDoList";
-import ToDoForm from "../ToDos/ToDoForm";
-import "../../css/listcss.css"
-import ItemService from "../../services/ItemsService/item.service";
+import ToDoList from "./ToDos/ToDoList";
+import ToDoForm from "./ToDos/ToDoForm";
+import "../css/listcss.css"
+import ItemService from "../services/ItemsService/item.service";
 
 
-const Lists = () => {
+const ToDoPage = () => {
   var [toDoList, setToDoList] = useState();
   var [empty, setEmpty] = useState(false);
 
@@ -22,12 +20,6 @@ const Lists = () => {
       }
     });
   }
-  // function addNewItem(subject, body, completed) {
-  //   ItemService.addItem(subject, body, completed);
-  //   getItems();
-
-  //   console.log("this should reset the page")
-  // }
 
   const handleToggle = (id) => {
     let mapped = toDoList.map(task => {
@@ -78,7 +70,6 @@ const Lists = () => {
       let body = "body from react";
       let completed = false;
       console.log(subject, body, completed);
-      // addNewItem(subject, body, completed);
       ItemService.addItem(subject, body, completed)
         .then(() => {
           getItems();
@@ -97,8 +88,10 @@ const Lists = () => {
   }, []);
 
   return (
-    <div className="App">
-      <ListHeader />
+    <div className="todo-app">
+      <header>
+            <h1 className="header-todo">Your To Do Items</h1>
+        </header>
       <ToDoList toDoList={toDoList} handleToggle={handleToggle} handleFilter={handleFilter} />
       <ToDoForm addTask={addTask} />
       {empty ?
@@ -111,4 +104,4 @@ const Lists = () => {
   );
 }
 
-export default Lists;
+export default ToDoPage;

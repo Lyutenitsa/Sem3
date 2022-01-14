@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import UserService from "../services/user.service";
-
-const Home = () => {
+function Home() {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-        setContent("PUBLIC CONTENT");
+    setContent("Welcome to the productivity website. Please log in to access the features of the applicaiton ");
 
     // UserService.getPublicContent().then(
     //   (response) => {
@@ -17,7 +15,6 @@ const Home = () => {
     //       (error.response && error.response.data) ||
     //       error.message ||
     //       error.toString();
-
     //     setContent(_content);
     //   }
     // );
@@ -26,10 +23,13 @@ const Home = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{JSON.stringify(content)}</h3>
+        <h3>Welcome</h3>
+        <p>This is a website made by Lyutfi Ismail.</p>
+
+
       </header>
     </div>
   );
-};
+}
 
 export default Home;

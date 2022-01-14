@@ -54,6 +54,12 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String email)
+    {
+        this.username = username;
+        this.email = email;
+    }
+
     public UserResponse get()
     {
         UserResponse user = new UserResponse();

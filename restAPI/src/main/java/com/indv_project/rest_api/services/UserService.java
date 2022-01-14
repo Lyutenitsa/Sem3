@@ -2,10 +2,12 @@ package com.indv_project.rest_api.services;
 
 import com.indv_project.rest_api.models.User;
 import com.indv_project.rest_api.payload.request.ChangePswdRequest;
+import com.indv_project.rest_api.payload.request.ChangeUsernameEmailRequest;
 import com.indv_project.rest_api.payload.request.ChangeUsernameRequest;
 import com.indv_project.rest_api.payload.request.UserCreateRequest;
 import com.indv_project.rest_api.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.type.TrueFalseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -120,6 +122,28 @@ public class UserService {
         System.out.println(reqPassword);
         return new ResponseEntity<>("Incorrect password inputted", HttpStatus.UNAUTHORIZED);
     }
+
+    public Optional<User> changeUsernameEmail(ChangeUsernameEmailRequest request)
+    {
+        Optional<User> _user = userRepo.findByUsername(request.getUsername());
+        System.out.println("Change method");
+        if(_user.isEmpty()){
+            Optional<User> userToSave = userRepo.findById(request.getId());
+            userToSave.get().setUsername(request.getUsername());
+            userToSave.get().setEmail(request.getEmail());
+
+            userRepo.save(userToSave.get());
+
+            System.out.println("So username is not found");
+            return userToSave;
+        }
+        else{
+            System.out.println("Username exists");
+            return Optional.empty();
+        }
+
+    }
+
 
     public ResponseEntity<String> deleteUser(Long id)
     {

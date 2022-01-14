@@ -12,12 +12,14 @@ const getAllItems = () => {
 }
 const addItem = (subject, body, completed) => {
     console.log("Sending new item");
+    console.log(user.id);
+    let user_id = user.id;
     return axios
         .post(URL_API + "/createItem", {
             subject,
             body,
             completed,
-            user
+            user_id
         }, {
             headers: authHeader()
         })

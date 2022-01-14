@@ -2,6 +2,7 @@ package com.indv_project.rest_api.controllers;
 
 import com.indv_project.rest_api.models.Item;
 import com.indv_project.rest_api.models.User;
+import com.indv_project.rest_api.payload.request.ItemCreator;
 import com.indv_project.rest_api.services.ItemsService;
 import com.indv_project.rest_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,18 +81,20 @@ public class ItemController {
     }
 
     @PostMapping("/createItem")
-    public ResponseEntity<?> createItem(@RequestBody Item reqItem)
+    public ResponseEntity<?> createItem(@RequestBody ItemCreator reqItem)
     {
+        System.out.println("Cant get ID? or just cant resolve the JSON");
         try
         {
-            Optional<User> _user = userService.findById(reqItem.getUser().getId());
+
+            Optional<User> _user = userService.findById(reqItem.getUser_id());
             userService.saveUser(_user.get());
 
             System.out.println(reqItem.toString());
 
-            reqItem.setCompleted(Boolean.FALSE);
+            Item itemToSave = new Item(reqItem.getBody(), _user.get(), reqItem.getSubject());
 
-            Item _item = itemsService.saveItem(reqItem);
+            Item _item = itemsService.saveItem(itemToSave);
             return new ResponseEntity<>(_item, HttpStatus.CREATED);
         }
         catch(Exception e)
