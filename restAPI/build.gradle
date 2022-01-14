@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     runtimeOnly 'mysql:mysql-connector-java'
 
@@ -61,10 +62,12 @@ tasks.named('sonarqube').configure {
 test {
     useJUnitPlatform()
 }
+
 jacocoTestReport {
     reports {
         xml.enabled true
     }
 }
+
 test.finalizedBy jacocoTestReport
 

@@ -2,6 +2,7 @@ import React from "react";
 import AuthService from "../services/AuthServices/auth.service";
 import { Switch, Route, Link } from "react-router-dom";
 import UserForm from "./profile/user-edit-form";
+import WebSocket from "../services/WebSockets/websocket-impl";
 
 
 const Profile = () => {
@@ -9,6 +10,7 @@ const Profile = () => {
 
   return (
     <div className="container">
+      <WebSocket  userid={currentUser.id} />
       <header className="jumbotron">
         <h3>
           <strong>{currentUser.username}</strong>'s Profile
