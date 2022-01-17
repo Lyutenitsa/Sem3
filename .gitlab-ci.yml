@@ -79,7 +79,7 @@ dockerComposeDeployment:
   script:
     - dir
     - echo "Deploy stage started"
-    - docker-compose up 
+    - docker-compose up -d 
     - echo "Deploy successful"
 
 # deploy-front-end:
