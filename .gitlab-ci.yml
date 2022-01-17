@@ -4,13 +4,10 @@ before_script:
 
 stages:
   - buildFrontEnd
-  # - clean
   - sonarqube
   - build
-  # - test
-  # - assemble
   - dockerComposeDeployment
-  # - deployBackEnd
+
 
 
 buildFrontEnd:
@@ -27,18 +24,6 @@ buildFrontEnd:
         expire_in: 1 hour
         paths:
             - build
-  
-# clean:
-#   stage: clean
-#   tags: 
-#     - back-end
-#   script:
-#     - cd restAPI
-#     - ./gradlew clean
-#     - echo "Clean script over"
-#   # artifacts:
-#   #   paths:
-#   #     - build/libs/*.jar
 
 sonarqube:
  stage: sonarqube
@@ -60,17 +45,6 @@ build:
     paths:
       - build/libs/*.jar
 
-# test:
-#   stage: test
-#   tags: 
-#     - back-end
-#   script:
-#     - cd restAPI
-#     - ./gradlew test
-#     - echo "Test script over"
-#   artifacts:
-#     paths:
-#       - build/libs/*.jar  
 
 dockerComposeDeployment:
   stage: dockerComposeDeployment
@@ -82,27 +56,6 @@ dockerComposeDeployment:
     - docker-compose up -d 
     - echo "Deploy successful"
 
-# deploy-front-end:
-#   stage: deployFrontEnd
-#   tags: 
-#    - front-end
-#  script:
-#   - cd reactFrontEnd
-#   - echo "Deploy stage started"
-#   - docker build -t react-front-end .
-#   - docker run -it -p 3000:3000 --rm --name front-end react-front-end .
-#   - echo "Deploy successful"
-        
-# deploy-back-end:
-#  stage: deployBackEnd
-#  tags: 
-#    - front-end
-#  script:
-#    - cd restAPI
-#    - echo "Deploy stage back-end started"
-#    - docker build -t spring-api .
-#    - docker run -it -p 8000:8000 --rm --name back-end spring-api .
-#    - echo "Deploy successful"
 
 after_script:
   - echo "This is form the shell runner. After Script"
